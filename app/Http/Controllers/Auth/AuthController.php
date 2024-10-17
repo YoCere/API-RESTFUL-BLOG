@@ -45,5 +45,20 @@ return response()->json([
 
  
 
-  
+   public function login(LoginRequest $request){
+   $credencials = $request->only('email','password');
+
+   try {
+    if (!$token = JWTAuth::attempt($credencials)) {
+        return response()->json([
+            'error' => 'invalid credentials'
+        ], 400);
+            }
+        } catch (JWTException $e) {
+            return response()->json([
+                'error' => 'no create token'
+            ], 500);
+        }
+   return response()->json(compact('token'));
+}
 }
