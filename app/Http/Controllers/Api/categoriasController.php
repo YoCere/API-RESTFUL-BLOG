@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Articulo;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class articuloController extends Controller
+class categoriasController extends Controller
 {
     public function index(){
 
-        $Articulos = Articulo::all();
+        $Categorias = Categoria::all();
 
-        //if($Articulos->isEmpty()){
+        //if($Categorias->isEmpty()){
         //    $data = [
         //        'message'=> 'No se encontraron articulos registrados',
         //        'status'=> 200
@@ -23,7 +23,7 @@ class articuloController extends Controller
         //}
 
         $data = [
-            'articulos' => $Articulos,
+            'articulos' => $Categorias,
             'status'=> 200
         ];
 
@@ -32,12 +32,10 @@ class articuloController extends Controller
 
     public function store(Request $request){
         $validator = Validator::make($request->all(), [
-            'titulo'=>'required',
-            'contenido'=>'required',
-            'categoria_id'=>'required',
-            'usuario_id'=>'required'
+            'nombre' => 'required',
+            'descripcion' => 'required'
         ]);
-
+    
         if($validator->fails()){
             $data = [
                 'message'=> 'Error de validacion de los datos',
@@ -46,23 +44,22 @@ class articuloController extends Controller
             ];
             return response()->json($data, 400);
         }
-        $Articulo = Articulo::create([
-            'titulo'=>$request->titulo,
-            'contenido'=>$request->contenido,
-            'categoria_id'=>$request->categoria_id,
-            'usuario_id'=>$request->usuario_id
+    
+        $Categoria = Categoria::create([
+            'nombre' => $request->nombre,
+            'descripcion' => $request->descripcion
         ]);
-
-        if(!$Articulo){
+    
+        if(!$Categoria){
             $data = [
-                'message'=> 'Error al crear el articulo',
+                'message'=> 'Error al crear la categoria',
                 'status'=>500
             ];
             return response()->json($data, 500);
         }
-
+    
         $data = [
-            'articulo'=>$Articulo,
+            'categoria' => $Categoria,
             'status'=>201
         ];
         return response()->json($data, 201);
