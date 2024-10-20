@@ -132,6 +132,8 @@ return [
     */
 
     'algo' => env('JWT_ALGO', Tymon\JWTAuth\Providers\JWT\Provider::ALGO_HS256),
+    ///////////////////////'algo' => env('JWT_ALGO', 'HS256'),
+
 
     /*
     |--------------------------------------------------------------------------
@@ -263,38 +265,13 @@ return [
 
     'providers' => [
 
-        /*
-        |--------------------------------------------------------------------------
-        | JWT Provider
-        |--------------------------------------------------------------------------
-        |
-        | Specify the provider that is used to create and decode the tokens.
-        |
-        */
 
         'jwt' => Tymon\JWTAuth\Providers\JWT\Lcobucci::class,
-
-        /*
-        |--------------------------------------------------------------------------
-        | Authentication Provider
-        |--------------------------------------------------------------------------
-        |
-        | Specify the provider that is used to authenticate users.
-        |
-        */
-
-        'auth' => Tymon\JWTAuth\Providers\Auth\Illuminate::class,
-
-        /*
-        |--------------------------------------------------------------------------
-        | Storage Provider
-        |--------------------------------------------------------------------------
-        |
-        | Specify the provider that is used to store tokens in the blacklist.
-        |
-        */
-
+        'auth' => Tymon\JWTAuth\Providers\Auth\Illuminate::class,   
         'storage' => Tymon\JWTAuth\Providers\Storage\Illuminate::class,
+
+
+        
 
     ],
 

@@ -166,6 +166,7 @@ return [
          * Package Service Providers...
          */
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class, // JWT-Auth
+        
 
         /*
          * Application Service Providers...
@@ -230,6 +231,8 @@ return [
         // Aliases for JWT-Auth
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+
+        
 
     ],
 
