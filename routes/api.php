@@ -15,7 +15,7 @@ Route::post('/login', [AuthController::class, 'login']);
 //Route::middleware('jwt.verify')->group(function(){
 //Route::get('users', [UserController::class, 'index']);
 
-Route::middleware(['jwt.verify'])->group(function () {
+Route::middleware(["jwt.verify"])->group(function () {
     Route::get('users', [UserController::class, 'index']);
 });
 
