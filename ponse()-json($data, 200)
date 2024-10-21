@@ -1,0 +1,15 @@
+[33m54864c3[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Crud Articulos acabado con detalles a mejorar
+[33m8aa6db0[m Merge main, usuarios-crud, comentarios-crud, and articulos-crud branches
+[33m8facdaf[m[33m ([m[1;31morigin/feature/usuarios-crud[m[33m, [m[1;32mfeature/usuarios-crud[m[33m)[m Arreglango problema con el commit '295a574'
+[33m295a574[m Solucion parcial al problema de jwt.verify
+[33md53db4c[m Añadido archivo .gitattributes para manejar los saltos de línea
+[33me6543ad[m error al proteger rutas: Target class[jwy.verify]does not exist
+[33mc1c605d[m[33m ([m[1;32mfeature/comentarios-crud[m[33m)[m Actualizacion de controllers Articulos y categorias
+[33m208014d[m Se Configura Login con email y passwordí
+[33m65e6d43[m se configuro Usuario register y problemas con Login
+[33m84bfe03[m Creacion del Modelo de comentario
+[33m13573f4[m[33m ([m[1;31morigin/feature/comentarios-crud[m[33m)[m CRUD ARTICULO|Listar
+[33md1a2cb3[m[33m ([m[1;31morigin/feature/articulos-crud[m[33m, [m[1;32mfeature/articulos-crud[m[33m)[m se crea migraciones base de datos y tablas VVP
+[33m6c1fd1a[m Installing dependencies for the API in Laravel
+[33mdbae410[m first commitment creation of the API-REST project FUL BLOG
+[33m1d5fd52[m Initial commit
