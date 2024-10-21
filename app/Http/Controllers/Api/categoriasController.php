@@ -15,7 +15,7 @@ class categoriasController extends Controller
 
         //if($Categorias->isEmpty()){
         //    $data = [
-        //        'message'=> 'No se encontraron articulos registrados',
+        //        'message'=> 'No se encontraron Categorias registrados',
         //        'status'=> 200
         //    ];
 
@@ -23,7 +23,7 @@ class categoriasController extends Controller
         //}
 
         $data = [
-            'articulos' => $Categorias,
+            'Categorias' => $Categorias,
             'status'=> 200
         ];
 
@@ -63,5 +63,77 @@ class categoriasController extends Controller
             'status'=>201
         ];
         return response()->json($data, 201);
+    }
+
+    public function mostrar($id){
+        $Categoria= Categoria::find($id);
+        if(!$Categoria){
+            $data = [
+                'message' => 'Categoria no encontrado',
+                'status' => 404
+            ];
+            return response()->json($data, 404);
+        }
+        $data = [
+            'Categoria'=> $Categoria,
+            'status'=> 200
+        ];
+    }
+
+    public function eliminar($id){
+        $CategoriaElim = Categoria::find($id);
+
+        if(!$CategoriaElim){
+            $data = [
+                'message'=> 'El Categoria no se a encontrado',
+                'status'=> 404
+            ]; 
+            return response()->json($data, 200);
+        }
+        $CategoriaElim->delete();
+
+        $data=[
+            'message'=>'El Categoria a sido eliminado',
+            'status'=>200
+        ];
+
+        return response()->json($data, 200);
+    }
+
+    public function actualizar(Request $request, $id){
+        $CategoriaActu = Categoria::find($id);
+        if(!$CategoriaActu){
+            $data=[
+            'message'=>'Categoria no encontrado',
+            'status'=>404
+            ];
+            return response()->json($data, 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'nombre'=>'required|max:255',
+            'descripcion'=>'required|max:5000'
+        ]);
+
+        if(!$validator->fails()){
+            $data = [
+                'message'=>'Error al validar los datos',
+                'errors'=>$validator->errors(),
+                'status'=>400
+            ];
+        }
+
+        $CategoriaActu->nombre= $request->nombre;
+        $CategoriaActu->descripcion= $request->descripcion;
+        
+        $CategoriaActu->save();
+
+        $data = [
+            'message'=> 'Categoria actualizado',
+            'Categoria'=> $CategoriaActu,
+            'status'=>200
+        ];
+
+        return response()->json($data, 200);
     }
 }

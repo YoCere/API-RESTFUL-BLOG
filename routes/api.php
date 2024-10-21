@@ -28,7 +28,14 @@ Route::put('/articulos/{id}', [articuloController::class, 'actualizar']);
 
 Route::get('/categorias', [categoriasController::class, 'index']);
 
+Route::get('/categorias/{id}', [categoriasController::class, 'mostrar']);
+
 Route::post('/categorias', [categoriasController::class, 'store']);
+
+Route::delete('/categorias/{id}', [categoriasController::class, 'eliminar']);
+
+Route::put('/categorias/{id}', [categoriasController::class, 'actualizar']);
+
 
 Route::get('users', [UserController::class, 'index']);
 
