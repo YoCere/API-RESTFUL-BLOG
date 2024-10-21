@@ -131,8 +131,8 @@ return [
     |
     */
 
-   'algo' => env('JWT_ALGO', Tymon\JWTAuth\Providers\JWT\Provider::ALGO_HS256),
-   //'algo' => env('JWT_ALGO', 'HS256'),
+    //'algo' => env('JWT_ALGO', PHPOpenSourceSaver\JWTAuth\Providers\JWT\Provider::ALGO_HS256),
+   'algo' => env('JWT_ALGO', 'HS256'),
 
 
     /*
@@ -266,9 +266,9 @@ return [
     'providers' => [
 
 
-        'jwt' => Tymon\JWTAuth\Providers\JWT\Lcobucci::class,
-        'auth' => Tymon\JWTAuth\Providers\Auth\Illuminate::class,   
-        'storage' => Tymon\JWTAuth\Providers\Storage\Illuminate::class,
+        'jwt' => PHPOpenSourceSaver\JWTAuth\Providers\JWT\Lcobucci::class,
+        'auth' => PHPOpenSourceSaver\JWTAuth\Providers\Auth\Illuminate::class,   
+        'storage' => PHPOpenSourceSaver\JWTAuth\Providers\Storage\Illuminate::class,
 
 
         

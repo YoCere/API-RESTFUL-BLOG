@@ -58,14 +58,16 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'password.confirm' => \Illuminate\Auth\Middleware\EnsurePasswordIsConfirmed::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        //'jwt.auth' => \Tymon\JWTAuth\Http\Middleware\Authenticate::class,
-        //'jwt.refresh' => \Tymon\JWTAuth\Http\Middleware\RefreshToken::class
+        //'jwt.auth' => \PHPOpenSourceSaver\JWTAuth\Http\Middleware\Authenticate::class,
+        //'jwt.refresh' => \PHPOpenSourceSaver\JWTAuth\Http\Middleware\RefreshToken::class
         // Corregido el nombre del middleware
         //'jwt.verify' => JwtMiddleware::class,
         //'jwt.verify' => \App\Http\Middleware\JwtMiddleware::class,
 
-        'jwt.refresh' => \Tymon\JWTAuth\Http\Middleware\RefreshToken::class,
+        'jwt.auth' => \PHPOpenSourceSaver\JWTAuth\Http\Middleware\Authenticate::class,
+         'jwt.refresh' => \PHPOpenSourceSaver\JWTAuth\Http\Middleware\RefreshToken::class,
+
         //'jwt.verify' => \App\Http\Middleware\JwtMiddleware::class,
-        'jwt.verify' => JwtMiddleware::class,
+        //'jwt.verify' => JwtMiddleware::class,
     ];
 }

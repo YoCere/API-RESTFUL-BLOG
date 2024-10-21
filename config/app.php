@@ -165,7 +165,8 @@ return [
         /*
          * Package Service Providers...
          */
-        Tymon\JWTAuth\Providers\LaravelServiceProvider::class, // JWT-Auth
+        PHPOpenSourceSaver\JWTAuth\Providers\LaravelServiceProvider::class, // JWT-Auth
+        
         
 
         /*
@@ -229,10 +230,9 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         // Aliases for JWT-Auth
-        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
-        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+        'JWTAuth' => PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth::class,
+        'JWTFactory' => PHPOpenSourceSaver\JWTAuth\Facades\JWTFactory::class,
 
-        
 
     ],
 

@@ -15,7 +15,16 @@ Route::post('/login', [AuthController::class, 'login']);
 
 //Route::middleware('jwt.verify')->group(function(){
 
-Route::get('/articulos', [articuloController::class, 'index']);
+
+
+
+//Route::get('users', [UserController::class, 'index']);
+
+
+Route::middleware(['jwt.auth'])->group(function () {
+    Route::get('/users', [UserController::class, 'index']);
+
+    Route::get('/articulos', [articuloController::class, 'index']);
 
 Route::get('/articulos/{id}', [articuloController::class, 'mostrar']);
 
@@ -36,12 +45,6 @@ Route::delete('/categorias/{id}', [categoriasController::class, 'eliminar']);
 
 Route::put('/categorias/{id}', [categoriasController::class, 'actualizar']);
 
-
-//Route::get('users', [UserController::class, 'index']);
-
-
-Route::middleware(['jwt.verify'])->group(function () {
-    Route::get('/users', [UserController::class, 'index']);
 });
 
 
