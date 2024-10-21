@@ -55,11 +55,11 @@ Route::put('/comentarios/{id}', [comentariosController::class, 'actualizar']);
 
 //autenticacion================================================================
 
-Route::get('users', [UserController::class, 'index']);
+//Route::get('users', [UserController::class, 'index']);
 
 
 Route::middleware(['jwt.verify'])->group(function () {
-    //Route::get('users', [UserController::class, 'index']);
+    Route::get('/users', [UserController::class, 'index']);
 });
 
 
