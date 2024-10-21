@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-//use Symfony\Component\HttpFoundation\Response
+use Symfony\Component\HttpFoundation\Response;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -28,7 +28,7 @@ class JwtMiddleware
             // Intenta autenticar el token JWT
             JWTAuth::parseToken()->authenticate();
 
-        } catch (Exception $e) {
+        } catch (JWTException $e) {
             if ($e instanceof TokenInvalidException) {
                 // El token es inválido
                 return response()->json(['status' => 'Token is Invalid'], 401);

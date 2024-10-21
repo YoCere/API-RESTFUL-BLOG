@@ -13,10 +13,10 @@ Route::post('/login', [AuthController::class, 'login']);
 //protected routec
 
 //Route::middleware('jwt.verify')->group(function(){
-//Route::get('users', [UserController::class, 'index']);
+Route::get('users', [UserController::class, 'index']);
 
 Route::middleware(['jwt.verify'])->group(function () {
-    Route::get('users', [UserController::class, 'index']);
+    //Route::get('users', [UserController::class, 'index']);
 });
 
 

@@ -6,6 +6,7 @@ use App\Http\Middleware\JwtMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 
+
 class Kernel extends HttpKernel
 {
     /**
@@ -19,6 +20,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        
     ];
 
     /**
@@ -63,7 +65,7 @@ class Kernel extends HttpKernel
         //'jwt.verify' => \App\Http\Middleware\JwtMiddleware::class,
 
         'jwt.refresh' => \Tymon\JWTAuth\Http\Middleware\RefreshToken::class,
-        'jwt.verify' => \App\Http\Middleware\JwtMiddleware::class,
-        //'jwt.verify' => JwtMiddleware::class,
+        //'jwt.verify' => \App\Http\Middleware\JwtMiddleware::class,
+        'jwt.verify' => JwtMiddleware::class,
     ];
 }
