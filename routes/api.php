@@ -37,11 +37,11 @@ Route::delete('/categorias/{id}', [categoriasController::class, 'eliminar']);
 Route::put('/categorias/{id}', [categoriasController::class, 'actualizar']);
 
 
-Route::get('users', [UserController::class, 'index']);
+//Route::get('users', [UserController::class, 'index']);
 
 
 Route::middleware(['jwt.verify'])->group(function () {
-    //Route::get('users', [UserController::class, 'index']);
+    Route::get('/users', [UserController::class, 'index']);
 });
 
 
