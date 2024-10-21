@@ -32,8 +32,8 @@ class categoriasController extends Controller
 
     public function store(Request $request){
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required',
-            'descripcion' => 'required'
+            'nombre' => 'required|max:255',
+            'descripcion' => 'required|max:1000'
         ]);
     
         if($validator->fails()){
