@@ -16,8 +16,13 @@ return new class extends Migration
             $table->id(); 
             $table->text('contenido'); 
             $table->unsignedBigInteger('articulo_id'); 
-            $table->unsignedBigInteger('usuario_id'); 
-            $table->timestamp('fecha_creacion')->useCurrent(); 
+            $table->foreign('articulo_id')->references('id')->on('articulos')->onDelete('cascade');
+
+            $table->unsignedBigInteger('usuario_id');  // Define el campo usuario_id como clave foránea
+            // Clave foránea que apunta a la tabla 'users'
+            $table->foreign('usuario_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->timestamps(); 
         });
     }
 
