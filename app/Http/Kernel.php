@@ -7,6 +7,7 @@ use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 
 
+
 class Kernel extends HttpKernel
 {
     /**
@@ -67,5 +68,7 @@ class Kernel extends HttpKernel
         'jwt.refresh' => \Tymon\JWTAuth\Http\Middleware\RefreshToken::class,
         //'jwt.verify' => \App\Http\Middleware\JwtMiddleware::class,
         'jwt.verify' => JwtMiddleware::class,
+        'jwt.auth' => \Tymon\JWTAuth\Middleware\GetUserFromToken::class,
+        'jwt.refresh' => \Tymon\JWTAuth\Middleware\RefreshToken::class,
     ];
 }

@@ -16,4 +16,7 @@ class Articulo extends Model
         'contenido',
         'categoria_id',
         'usuario_id'];
+    public function comentarios(){
+        return $this->hasMany(Comentario::class, 'articulo_id');
+    }
 }
