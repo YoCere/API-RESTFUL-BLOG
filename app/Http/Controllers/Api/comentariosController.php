@@ -30,46 +30,37 @@ class comentariosController extends Controller
         return response()->json($data, 200);
     }
 
-    public function store(Request $request){
+    public function store(Request $request) {
         $validator = Validator::make($request->all(), [
             'contenido' => 'required|max:3000',
             'descripcion' => 'required|max:255',
             'articulo_id' => 'required|exists:articulos,id',
-            'usuario_id' => 'required|exists:usuarios,id'
+            'usuario_id' => 'required|exists:users,id'
         ], [
             'articulo_id.exists' => 'El artículo seleccionado no es válido.',
             'usuario_id.exists' => 'El usuario seleccionado no es válido.'
         ]);
     
-        if($validator->fails()){
-            $data = [
-                'message'=> 'Error de validacion de los datos',
-                'errors'=>$validator->errors(),
-                'status'=>400
-            ];
-            return response()->json($data, 400);
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Error de validación',
+                'errors' => $validator->errors(),
+                'status' => 400
+            ], 400);
         }
     
+        // Asignar el ID del usuario autenticado
         $Comentario = Comentario::create([
             'contenido' => $request->contenido,
             'descripcion' => $request->descripcion,
             'articulo_id' => $request->articulo_id,
-            'usuario_id' => auth()->id()  // Asignar el ID del usuario autenticado
+            'usuario_id' => $request->usuario_id  // Aquí asignamos el ID del usuario autenticado
         ]);
     
-        if(!$Comentario){
-            $data = [
-                'message'=> 'Error al crear la Comentario',
-                'status'=>500
-            ];
-            return response()->json($data, 500);
-        }
-    
-        $data = [
+        return response()->json([
             'Comentario' => $Comentario,
-            'status'=>201
-        ];
-        return response()->json($data, 201);
+            'status' => 201
+        ], 201);
     }
 
     public function mostrar($id){
@@ -94,10 +85,10 @@ class comentariosController extends Controller
 
         if(!$ComentarioElim){
             $data = [
-                'message'=> 'El Comentario no se a encontrado',
+                'message'=> 'El Comentario no se ha encontrado',
                 'status'=> 404
             ]; 
-            return response()->json($data, 200);
+            return response()->json($data, 404);  // Cambiar a 404
         }
         $ComentarioElim->delete();
 
@@ -110,6 +101,7 @@ class comentariosController extends Controller
     }
 
     public function actualizar(Request $request, $id){
+      
         $ComentarioActu = Comentario::find($id);
         if(!$ComentarioActu){
             $data=[
@@ -123,30 +115,32 @@ class comentariosController extends Controller
             'contenido' => 'required|max:3000',
             'descripcion' => 'required|max:255',
             'articulo_id' => 'required|exists:articulos,id',
-            'usuario_id' => 'required|exists:usuarios,id'
+            'usuario_id' => 'required|exists:users,id'
         ], [
             'articulo_id.exists' => 'El artículo seleccionado no es válido.',
             'usuario_id.exists' => 'El usuario seleccionado no es válido.'
         ]);
+    
+        
 
-        if(!$validator->fails()){
+        if($validator->fails()){
             $data = [
                 'message'=>'Error al validar los datos',
                 'errors'=>$validator->errors(),
                 'status'=>400
             ];
+            return response()->json($data, 400);  // Retorna el error si falla la validación
         }
 
         $ComentarioActu->contenido= $request->contenido;
         $ComentarioActu->descripcion= $request->descripcion;
         $ComentarioActu->articulo_id= $request->articulo_id;
-        $ComentarioActu->usuario_id= $request->usuario_id;
-        
+        $ComentarioActu->usuario_id = $request->usuario_id;
         $ComentarioActu->save();
 
         $data = [
             'message'=> 'Comentario actualizado',
-            'Comentario'=> $ComentarioActu,
+            'Comentario'=> $ComentarioActu->fresh(),
             'status'=>200
         ];
 
