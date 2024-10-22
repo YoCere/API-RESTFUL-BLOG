@@ -10,22 +10,16 @@ use App\Http\Controllers\Api\categoriasController;
 use App\Http\Controllers\Api\comentariosController;
 use App\Models\Comentario;
 
+
+
+
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-
 //protected routec
-
 //Route::middleware('jwt.verify')->group(function(){
-
-
-
-
 //Route::get('users', [UserController::class, 'index']);
-
-
 Route::middleware(['jwt.auth'])->group(function () {
-    Route::get('/users', [UserController::class, 'index']);
-
+Route::get('/users', [UserController::class, 'index']);
 //articulos=============================================================0
 
     Route::get('/articulos', [articuloController::class, 'index']);
