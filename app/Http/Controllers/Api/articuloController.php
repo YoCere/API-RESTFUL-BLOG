@@ -7,43 +7,11 @@ use App\Models\Articulo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Validator;
-/**
- * @OA\Schema(
- *     schema="Articulo",
- *     type="object",
- *     required={"titulo", "contenido", "categoria_id", "usuario_id"},
- *     @OA\Property(property="id", type="integer", description="ID del artículo"),
- *     @OA\Property(property="titulo", type="string", description="Título del artículo"),
- *     @OA\Property(property="contenido", type="string", description="Contenido del artículo"),
- *     @OA\Property(property="categoria_id", type="integer", description="ID de la categoría asociada"),
- *     @OA\Property(property="usuario_id", type="integer", description="ID del usuario creador"),
- *     @OA\Property(property="created_at", type="string", format="date-time", description="Fecha de creación"),
- *     @OA\Property(property="updated_at", type="string", format="date-time", description="Fecha de última actualización")
- * )
- */
+
 
 class articuloController extends Controller
 {
-    /**
-     * @OA\Get(
-     *     path="/api/articulos",
-     *     summary="Get all articles",
-     *     description="Fetch all articles from the database.",
-     *     tags={"Articles"},
-     *     @OA\Response(
-     *         response=200,
-     *         description="List of articles",
-     *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/Articulo")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=404,
-     *         description="No articles found"
-     *     )
-     * )
-     */
+    
     public function index(){
 
         $Articulos = Articulo::all();
@@ -64,37 +32,7 @@ class articuloController extends Controller
 
         return response()->json($data, 200);
     }
-    /**
-     * @OA\Post(
-     *     path="/api/articulos",
-     *     summary="Create a new article",
-     *     description="Store a new article in the database.",
-     *     tags={"Articles"},
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             required={"titulo", "contenido", "categoria_id", "usuario_id"},
-     *             @OA\Property(property="titulo", type="string", example="New Article Title"),
-     *             @OA\Property(property="contenido", type="string", example="Article content goes here..."),
-     *             @OA\Property(property="categoria_id", type="integer", example=1),
-     *             @OA\Property(property="usuario_id", type="integer", example=1)
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=201,
-     *         description="Article created successfully",
-     *         @OA\JsonContent(ref="#/components/schemas/Articulo")
-     *     ),
-     *     @OA\Response(
-     *         response=400,
-     *         description="Validation error",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="Error de validacion de los datos"),
-     *             @OA\Property(property="errors", type="object")
-     *         )
-     *     )
-     * )
-     */
+   
     public function store(Request $request){
         $validator = Validator::make($request->all(), [
             'titulo'=>'required|max:255',
@@ -136,34 +74,6 @@ class articuloController extends Controller
         return response()->json($data, 201);
     }
 
-    /**
-     * @OA\Get(
-     *     path="/api/articulos/{id}",
-     *     summary="Get a specific article",
-     *     description="Fetch details of a specific article by its ID.",
-     *     tags={"Articles"},
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         required=true,
-     *         @OA\Schema(
-     *             type="integer"
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Article details",
-     *         @OA\JsonContent(ref="#/components/schemas/Articulo")
-     *     ),
-     *     @OA\Response(
-     *         response=404,
-     *         description="Article not found",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="Articulo no encontrado")
-     *         )
-     *     )
-     * )
-     */
 
     public function mostrar($id){
         $Articulo= Articulo::find($id);
@@ -181,36 +91,7 @@ class articuloController extends Controller
         return response()->json($data, 200);
     }
 
-    /**
-     * @OA\Delete(
-     *     path="/api/articulos/{id}",
-     *     summary="Delete an article",
-     *     description="Delete a specific article by its ID.",
-     *     tags={"Articles"},
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         required=true,
-     *         @OA\Schema(
-     *             type="integer"
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Article deleted successfully",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="El articulo a sido eliminado")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=404,
-     *         description="Article not found",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="El articulo no se a encontrado")
-     *         )
-     *     )
-     * )
-     */
+   
 
     public function eliminar($id){
         $ArticuloElim = Articulo::find($id);
@@ -232,52 +113,7 @@ class articuloController extends Controller
         return response()->json($data, 200);
     }
 
-    /**
-     * @OA\Put(
-     *     path="/api/articulos/{id}",
-     *     summary="Update an existing article",
-     *     description="Update the details of an existing article by its ID.",
-     *     tags={"Articles"},
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         required=true,
-     *         @OA\Schema(
-     *             type="integer"
-     *         )
-     *     ),
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             required={"titulo", "contenido", "categoria_id", "usuario_id"},
-     *             @OA\Property(property="titulo", type="string", example="Updated Article Title"),
-     *             @OA\Property(property="contenido", type="string", example="Updated content goes here..."),
-     *             @OA\Property(property="categoria_id", type="integer", example=2),
-     *             @OA\Property(property="usuario_id", type="integer", example=1)
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Article updated successfully",
-     *         @OA\JsonContent(ref="#/components/schemas/Articulo")
-     *     ),
-     *     @OA\Response(
-     *         response=400,
-     *         description="Validation error",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="Error al validar los datos"),
-     *             @OA\Property(property="errors", type="object")
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=404,
-     *         description="Article not found",
-     *         @OA\JsonContent(
-     *             @OA\Property(property="message", type="string", example="Articulo no encontrado")
-     *         )
-     *     )
-     * )
-     */
+    
 
     public function actualizar(Request $request, $id){
         $ArticuloActu = Articulo::find($id);

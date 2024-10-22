@@ -7,6 +7,15 @@ use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+/**
+* @OA\Info(
+*             title="Api Rest", 
+*             version="1.0",
+*             description="Descripcion"
+* )
+*
+* @OA\Server(url="http://localhost/API-RESTFUL-BLOG/public/")
+*/
 class categoriasController extends Controller
 {
     public function index(){

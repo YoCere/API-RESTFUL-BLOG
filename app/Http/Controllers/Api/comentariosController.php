@@ -11,21 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class comentariosController extends Controller
 {
 
-     /**
-     * @OA\Get(
-     *     path="/api/comentarios",
-     *     summary="Obtener todos los comentarios",
-     *     tags={"Comentarios"},
-     *     @OA\Response(
-     *         response=200,
-     *         description="Lista de comentarios obtenida."
-     *     ),
-     *     @OA\Response(
-     *         response=404,
-     *         description="No se encontraron comentarios."
-     *     )
-     * )
-     */
+
 
     public function index(){
 
@@ -48,31 +34,6 @@ class comentariosController extends Controller
         return response()->json($data, 200);
     }
 
-
-    /**
-     * @OA\Post(
-     *     path="/api/comentarios",
-     *     summary="Crear un nuevo comentario",
-     *     tags={"Comentarios"},
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             required={"contenido", "articulo_id", "usuario_id"},
-     *             @OA\Property(property="contenido", type="string", example="Este es un comentario"),
-     *             @OA\Property(property="articulo_id", type="integer", example=1),
-     *             @OA\Property(property="usuario_id", type="integer", example=1)
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=201,
-     *         description="Comentario creado"
-     *     ),
-     *     @OA\Response(
-     *         response=400,
-     *         description="Error de validación"
-     *     )
-     * )
-     */
 
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [
@@ -107,29 +68,6 @@ class comentariosController extends Controller
 
 
 
-    /**
-     * @OA\Get(
-     *     path="/api/comentarios/{id}",
-     *     summary="Mostrar un comentario por ID",
-     *     tags={"Comentarios"},
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         required=true,
-     *         description="ID del comentario",
-     *         @OA\Schema(type="integer")
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Comentario obtenido"
-     *     ),
-     *     @OA\Response(
-     *         response=404,
-     *         description="Comentario no encontrado"
-     *     )
-     * )
-     */
-
 
     public function mostrar($id){
         $Comentario = Comentario::find($id);
@@ -149,28 +87,6 @@ class comentariosController extends Controller
     }
 
 
-    /**
-     * @OA\Delete(
-     *     path="/api/comentarios/{id}",
-     *     summary="Eliminar un comentario por ID",
-     *     tags={"Comentarios"},
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         required=true,
-     *         description="ID del comentario",
-     *         @OA\Schema(type="integer")
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Comentario eliminado"
-     *     ),
-     *     @OA\Response(
-     *         response=404,
-     *         description="Comentario no encontrado"
-     *     )
-     * )
-     */
 
 
     public function eliminar($id){
@@ -194,41 +110,6 @@ class comentariosController extends Controller
     }
 
 
-    /**
-     * @OA\Put(
-     *     path="/api/comentarios/{id}",
-     *     summary="Actualizar un comentario por ID",
-     *     tags={"Comentarios"},
-     *     @OA\Parameter(
-     *         name="id",
-     *         in="path",
-     *         required=true,
-     *         description="ID del comentario",
-     *         @OA\Schema(type="integer")
-     *     ),
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             required={"contenido", "articulo_id", "usuario_id"},
-     *             @OA\Property(property="contenido", type="string", example="Este es un comentario actualizado"),
-     *             @OA\Property(property="articulo_id", type="integer", example=1),
-     *             @OA\Property(property="usuario_id", type="integer", example=1)
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Comentario actualizado"
-     *     ),
-     *     @OA\Response(
-     *         response=404,
-     *         description="Comentario no encontrado"
-     *     ),
-     *     @OA\Response(
-     *         response=400,
-     *         description="Error de validación"
-     *     )
-     * )
-     */
     
     public function actualizar(Request $request, $id){
       

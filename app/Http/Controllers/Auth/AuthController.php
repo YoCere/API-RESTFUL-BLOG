@@ -11,59 +11,55 @@ use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 use App\Http\Request\Auth\LoginRequest;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 
-
+/**
+ * @OA\Schema(
+ *     schema="User",
+ *     type="object",
+ *     @OA\Property(property="id", type="integer", example=1),
+ *     @OA\Property(property="name", type="string", example="John Doe"),
+ *     @OA\Property(property="email", type="string", example="johndoe@example.com"),
+ *     @OA\Property(property="rol", type="string", example="usuario")
+ * )
+ */
 
 
 class AuthController extends Controller
 {   
 /**
- * @OA\Post(
- *   path="/api/login",
- *   summary="User Authentication",
- *   description="Authenticate the user using JWT with email and password.",
- *   tags={"Authentication"},
- *   @OA\RequestBody(
- *     required=true,
- *     @OA\JsonContent(
- *       required={"email", "password"},
- *       @OA\Property(property="email", type="string", format="email", example="johndoe@example.com"),
- *       @OA\Property(property="password", type="string", format="password", example="password123")
- *     )
- *   ),
- *   @OA\Response(
- *     response=200,
- *     description="Successful Authentication",
- *     @OA\JsonContent(
- *       type="object",
- *       @OA\Property(
- *         property="token",
- *         type="string",
- *         description="JWT access token for authenticated user"
- *       ),
- *       @OA\Property(
- *         property="user",
- *         type="object",
- *         description="Details of the authenticated user",
- *         @OA\Property(property="id", type="integer", example=1),
- *         @OA\Property(property="name", type="string", example="John Doe"),
- *         @OA\Property(property="email", type="string", example="johndoe@example.com")
- *       )
- *     )
- *   ),
- *   @OA\Response(
- *     response=401,
- *     description="Unauthorized",
- *     @OA\JsonContent(
- *       type="object",
- *       @OA\Property(property="error", type="string", example="Invalid credentials")
- *     )
- *   ),
- *   @OA\Response(
- *     response=500,
- *     description="Server error"
- *   )
- * )
- */
+     * @OA\Post(
+     *   path="/api/register",
+     *   summary="User Registration",
+     *   description="Register a new user.",
+     *   tags={"Authentication"},
+     *   @OA\RequestBody(
+     *     required=true,
+     *     @OA\JsonContent(
+     *       required={"name", "email", "password", "rol"},
+     *       @OA\Property(property="name", type="string", example="John Doe"),
+     *       @OA\Property(property="email", type="string", format="email", example="johndoe@example.com"),
+     *       @OA\Property(property="password", type="string", format="password", example="password123"),
+     *       @OA\Property(property="rol", type="string", example="usuario")
+     *     )
+     *   ),
+     *   @OA\Response(
+     *     response=201,
+     *     description="User registered successfully.",
+     *     @OA\JsonContent(
+     *       type="object",
+     *       @OA\Property(property="user", type="object", ref="#/components/schemas/User"),
+     *       @OA\Property(property="token", type="string")
+     *     )
+     *   ),
+     *   @OA\Response(
+     *     response=422,
+     *     description="Validation error",
+     *     @OA\JsonContent(
+     *       type="object",
+     *       @OA\Property(property="errors", type="object")
+     *     )
+     *   )
+     * )
+     */
    public function register(Request $request)
    {
        // Crear las reglas de validación
@@ -95,7 +91,7 @@ return response()->json([
        return response()->json(['message' => 'Usuario registrado con éxito'], 201);
    }
 
-  /**
+/**
  * @OA\Post(
  *   path="/api/login",
  *   summary="User Login",
@@ -143,7 +139,6 @@ return response()->json([
  *   )
  * )
  */
-
 
    public function login(LoginRequest $request){
    $credencials = $request->only('email','password');

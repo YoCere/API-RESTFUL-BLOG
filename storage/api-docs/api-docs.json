@@ -1,318 +1,23 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "API RESTFUL BLOG",
-        "description": "API RESTful for managing articles, categories, users, and comments",
-        "version": "1.0.0"
+        "title": "Api Rest",
+        "description": "Descripcion",
+        "version": "1.0"
     },
+    "servers": [
+        {
+            "url": "http://localhost/API-RESTFUL-BLOG/public/"
+        }
+    ],
     "paths": {
-        "/api/articulos": {
-            "get": {
-                "tags": [
-                    "Articles"
-                ],
-                "summary": "Get all articles",
-                "description": "Fetch all articles from the database.",
-                "operationId": "0ae5a12aee0432b2528ddcbc37079ca0",
-                "responses": {
-                    "200": {
-                        "description": "List of articles",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Articulo"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "No articles found"
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Articles"
-                ],
-                "summary": "Create a new article",
-                "description": "Store a new article in the database.",
-                "operationId": "2936840cff2b5ba53b8868fd66d484fc",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "titulo",
-                                    "contenido",
-                                    "categoria_id",
-                                    "usuario_id"
-                                ],
-                                "properties": {
-                                    "titulo": {
-                                        "type": "string",
-                                        "example": "New Article Title"
-                                    },
-                                    "contenido": {
-                                        "type": "string",
-                                        "example": "Article content goes here..."
-                                    },
-                                    "categoria_id": {
-                                        "type": "integer",
-                                        "example": 1
-                                    },
-                                    "usuario_id": {
-                                        "type": "integer",
-                                        "example": 1
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Article created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Articulo"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Validation error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Error de validacion de los datos"
-                                        },
-                                        "errors": {
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/articulos/{id}": {
-            "get": {
-                "tags": [
-                    "Articles"
-                ],
-                "summary": "Get a specific article",
-                "description": "Fetch details of a specific article by its ID.",
-                "operationId": "7b6dc438d30d2ff156d2990e6242da45",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Article details",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Articulo"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Article not found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Articulo no encontrado"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "Articles"
-                ],
-                "summary": "Update an existing article",
-                "description": "Update the details of an existing article by its ID.",
-                "operationId": "61e94f992d9a440b9ee60a7641589414",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "titulo",
-                                    "contenido",
-                                    "categoria_id",
-                                    "usuario_id"
-                                ],
-                                "properties": {
-                                    "titulo": {
-                                        "type": "string",
-                                        "example": "Updated Article Title"
-                                    },
-                                    "contenido": {
-                                        "type": "string",
-                                        "example": "Updated content goes here..."
-                                    },
-                                    "categoria_id": {
-                                        "type": "integer",
-                                        "example": 2
-                                    },
-                                    "usuario_id": {
-                                        "type": "integer",
-                                        "example": 1
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Article updated successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/Articulo"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Validation error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Error al validar los datos"
-                                        },
-                                        "errors": {
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Article not found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Articulo no encontrado"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Articles"
-                ],
-                "summary": "Delete an article",
-                "description": "Delete a specific article by its ID.",
-                "operationId": "9b3c7bc986f7ec27c6d7c6943b5dfc89",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Article deleted successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "El articulo a sido eliminado"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Article not found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "El articulo no se a encontrado"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/api/register": {
             "post": {
                 "tags": [
                     "Authentication"
                 ],
-                "summary": "Register a new user",
-                "description": "Create a new user account with the provided details.",
+                "summary": "User Registration",
+                "description": "Register a new user.",
                 "operationId": "ca7c0cb6772de9bffbb8c896980cebc8",
                 "requestBody": {
                     "required": true,
@@ -322,7 +27,8 @@
                                 "required": [
                                     "name",
                                     "email",
-                                    "password"
+                                    "password",
+                                    "rol"
                                 ],
                                 "properties": {
                                     "name": {
@@ -331,11 +37,17 @@
                                     },
                                     "email": {
                                         "type": "string",
+                                        "format": "email",
                                         "example": "johndoe@example.com"
                                     },
                                     "password": {
                                         "type": "string",
+                                        "format": "password",
                                         "example": "password123"
+                                    },
+                                    "rol": {
+                                        "type": "string",
+                                        "example": "usuario"
                                     }
                                 },
                                 "type": "object"
@@ -345,31 +57,16 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "User registered successfully",
+                        "description": "User registered successfully.",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "User registered successfully"
-                                        },
                                         "user": {
-                                            "properties": {
-                                                "id": {
-                                                    "type": "integer",
-                                                    "example": 1
-                                                },
-                                                "name": {
-                                                    "type": "string",
-                                                    "example": "John Doe"
-                                                },
-                                                "email": {
-                                                    "type": "string",
-                                                    "example": "johndoe@example.com"
-                                                }
-                                            },
-                                            "type": "object"
+                                            "$ref": "#/components/schemas/User"
+                                        },
+                                        "token": {
+                                            "type": "string"
                                         }
                                     },
                                     "type": "object"
@@ -377,16 +74,12 @@
                             }
                         }
                     },
-                    "400": {
+                    "422": {
                         "description": "Validation error",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Validation error"
-                                        },
                                         "errors": {
                                             "type": "object"
                                         }
@@ -404,20 +97,35 @@
                 "tags": [
                     "Authentication"
                 ],
-                "summary": "Google Authentication",
-                "description": "Authenticate the user using Google OAuth and an access token.",
+                "summary": "User Login",
+                "description": "Authenticate the user using email and password to issue a JWT token.",
                 "operationId": "c373bc4cffa4a56fc64e3979b8ee7b96",
-                "parameters": [
-                    {
-                        "name": "access_token",
-                        "in": "query",
-                        "description": "Access token received from Google OAuth",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "johndoe@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
                         }
                     }
-                ],
+                },
                 "responses": {
                     "200": {
                         "description": "Successful Authentication",
@@ -535,63 +243,30 @@
     },
     "components": {
         "schemas": {
-            "Articulo": {
-                "required": [
-                    "titulo",
-                    "contenido",
-                    "categoria_id",
-                    "usuario_id"
-                ],
+            "User": {
                 "properties": {
                     "id": {
-                        "description": "ID del artículo",
-                        "type": "integer"
+                        "type": "integer",
+                        "example": 1
                     },
-                    "titulo": {
-                        "description": "Título del artículo",
-                        "type": "string"
-                    },
-                    "contenido": {
-                        "description": "Contenido del artículo",
-                        "type": "string"
-                    },
-                    "categoria_id": {
-                        "description": "ID de la categoría asociada",
-                        "type": "integer"
-                    },
-                    "usuario_id": {
-                        "description": "ID del usuario creador",
-                        "type": "integer"
-                    },
-                    "created_at": {
-                        "description": "Fecha de creación",
+                    "name": {
                         "type": "string",
-                        "format": "date-time"
+                        "example": "John Doe"
                     },
-                    "updated_at": {
-                        "description": "Fecha de última actualización",
+                    "email": {
                         "type": "string",
-                        "format": "date-time"
+                        "example": "johndoe@example.com"
+                    },
+                    "rol": {
+                        "type": "string",
+                        "example": "usuario"
                     }
                 },
                 "type": "object"
             }
-        },
-        "securitySchemes": {
-            "bearerAuth": {
-                "type": "http",
-                "name": "bearerAuth",
-                "in": "header",
-                "bearerFormat": "JWT",
-                "scheme": "bearer"
-            }
         }
     },
     "tags": [
-        {
-            "name": "Articles",
-            "description": "Articles"
-        },
         {
             "name": "Authentication",
             "description": "Authentication"
