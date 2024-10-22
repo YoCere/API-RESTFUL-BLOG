@@ -291,7 +291,7 @@
         "/api/categorias": {
             "get": {
                 "tags": [
-                    "Categories"
+                    "Categorias"
                 ],
                 "summary": "Get all categories",
                 "operationId": "d65160905e2dfd9fffdeb401b331ded3",
@@ -342,7 +342,7 @@
             },
             "post": {
                 "tags": [
-                    "Categories"
+                    "Categorias"
                 ],
                 "summary": "Create a new category",
                 "operationId": "c47d932da911d833fdd310861780d9cf",
@@ -439,7 +439,7 @@
         "/api/categorias/{id}": {
             "get": {
                 "tags": [
-                    "Categories"
+                    "Categorias"
                 ],
                 "summary": "Get a category by ID",
                 "operationId": "a53a7f0db02de1321e879787a6596e34",
@@ -497,7 +497,7 @@
             },
             "put": {
                 "tags": [
-                    "Categories"
+                    "Categorias"
                 ],
                 "summary": "Update a category by ID",
                 "operationId": "c53d8be0fde4ab16fc01706ad378295b",
@@ -606,7 +606,7 @@
             },
             "delete": {
                 "tags": [
-                    "Categories"
+                    "Categorias"
                 ],
                 "summary": "Delete a category by ID",
                 "operationId": "1268fa42cf5830c1e992d68766bbb22c",
@@ -1404,8 +1404,8 @@
             "description": "Articulos"
         },
         {
-            "name": "Categories",
-            "description": "Categories"
+            "name": "Categorias",
+            "description": "Categorias"
         },
         {
             "name": "Comentarios",
