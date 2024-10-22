@@ -35,8 +35,11 @@ class articuloController extends Controller
         $validator = Validator::make($request->all(), [
             'titulo'=>'required|max:255',
             'contenido'=>'required|max:5000',
-            'categoria_id'=>'required',
-            'usuario_id'=>'required'
+            'categoria_id'=>'required|exists:categorias,id',
+            'usuario_id'=>'required|exists:users,id'
+        ], [
+            'categoria_id.exists' => 'El artículo seleccionado no es válido.',
+            'usuario_id.exists' => 'El usuario seleccionado no es válido.'
         ]);
 
         if($validator->fails()){
@@ -118,16 +121,19 @@ class articuloController extends Controller
         $validator = Validator::make($request->all(), [
             'titulo'=>'required|max:255',
             'contenido'=>'required|max:5000',
-            'categoria_id'=>'required',
-            'usuario_id'=>'required'
+            'categoria_id'=>'required|exists:categorias,id',
+            'usuario_id'=>'required|exists:users,id'
+        ], [
+            'categoria_id.exists' => 'El artículo seleccionado no es válido.',
+            'usuario_id.exists' => 'El usuario seleccionado no es válido.'
         ]);
 
-        if(!$validator->fails()){
-            $data = [
-                'message'=>'Error al validar los datos',
-                'errors'=>$validator->errors(),
-                'status'=>400
-            ];
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Error al validar los datos',
+                'errors' => $validator->errors(),
+                'status' => 400
+            ], 400);
         }
 
         $ArticuloActu->titulo= $request->titulo;

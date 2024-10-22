@@ -19,4 +19,13 @@ class Articulo extends Model
     public function comentarios(){
         return $this->hasMany(Comentario::class, 'articulo_id');
     }
+
+    public function usuario(){
+        return $this->belongsTo(User::class, 'usuario_id');
+    }
+    
+        // Relación con el modelo Articulo
+    public function categoria(){
+        return $this->belongsTo(Articulo::class, 'categoria_id');
+    }
 }

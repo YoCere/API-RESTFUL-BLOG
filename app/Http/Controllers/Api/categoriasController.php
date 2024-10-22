@@ -78,6 +78,7 @@ class categoriasController extends Controller
             'Categoria'=> $Categoria,
             'status'=> 200
         ];
+        return response()->json($data, 200);
     }
 
     public function eliminar($id){
