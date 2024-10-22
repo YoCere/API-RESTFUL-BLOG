@@ -7,11 +7,47 @@ use App\Models\Comentario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+/**
 
+ * @OA\Schema(
+ *     schema="Comentario",
+ *     type="object",
+ *     @OA\Property(property="id", type="integer", example=1),
+ *     @OA\Property(property="contenido", type="string", example="Contenido del comentario"),
+ *     @OA\Property(property="articulo_id", type="integer", example=1),
+ *     @OA\Property(property="usuario_id", type="integer", example=1),
+ *     @OA\Property(property="created_at", type="string", format="date-time", example="2024-01-01T12:00:00Z"),
+ *     @OA\Property(property="updated_at", type="string", format="date-time", example="2024-01-01T12:00:00Z")
+ * )
+ */
 class comentariosController extends Controller
 {
 
-
+  /**
+     * @OA\Get(
+     *     path="/api/comentarios",
+     *     summary="Get all comments",
+     *     tags={"Comentarios"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="Comentarios", type="array", @OA\Items(ref="#/components/schemas/Comentario")),
+     *             @OA\Property(property="status", type="integer", example=200)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="No comments found",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="message", type="string", example="No se encontraron comentarios registrados"),
+     *             @OA\Property(property="status", type="integer", example=404)
+     *         )
+     *     )
+     * )
+     */
 
     public function index(){
 
@@ -34,6 +70,51 @@ class comentariosController extends Controller
         return response()->json($data, 200);
     }
 
+
+    /**
+     * @OA\Post(
+     *     path="/api/comentarios",
+     *     summary="Create a new comment",
+     *     tags={"Comentarios"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"contenido", "articulo_id", "usuario_id"},
+     *             @OA\Property(property="contenido", type="string", example="Contenido del comentario"),
+     *             @OA\Property(property="articulo_id", type="integer", example=1),
+     *             @OA\Property(property="usuario_id", type="integer", example=1)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Comment created successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="Comentario", ref="#/components/schemas/Comentario"),
+     *             @OA\Property(property="status", type="integer", example=201)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Validation error",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="message", type="string", example="Error de validación"),
+     *             @OA\Property(property="errors", type="object"),
+     *             @OA\Property(property="status", type="integer", example=400)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Internal server error",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="message", type="string", example="Error al crear el comentario"),
+     *             @OA\Property(property="status", type="integer", example=500)
+     *         )
+     *     )
+     * )
+     */
 
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [
@@ -67,7 +148,37 @@ class comentariosController extends Controller
     }
 
 
-
+ /**
+     * @OA\Get(
+     *     path="/api/comentarios/{id}",
+     *     summary="Get a comment by ID",
+     *     tags={"Comentarios"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Comment found",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="Comentario", ref="#/components/schemas/Comentario"),
+     *             @OA\Property(property="status", type="integer", example=200)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Comment not found",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="message", type="string", example="Comentario no encontrado"),
+     *             @OA\Property(property="status", type="integer", example=404)
+     *         )
+     *     )
+     * )
+     */
 
     public function mostrar($id){
         $Comentario = Comentario::find($id);
@@ -87,7 +198,37 @@ class comentariosController extends Controller
     }
 
 
-
+ /**
+     * @OA\Delete(
+     *     path="/api/comentarios/{id}",
+     *     summary="Delete a comment by ID",
+     *     tags={"Comentarios"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Comment deleted successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="message", type="string", example="El comentario ha sido eliminado"),
+     *             @OA\Property(property="status", type="integer", example=200)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Comment not found",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="message", type="string", example="El comentario no se ha encontrado"),
+     *             @OA\Property(property="status", type="integer", example=404)
+     *         )
+     *     )
+     * )
+     */
 
     public function eliminar($id){
         $ComentarioElim = Comentario::find($id);
@@ -109,7 +250,57 @@ class comentariosController extends Controller
         return response()->json($data, 200);
     }
 
-
+ /**
+     * @OA\Put(
+     *     path="/api/comentarios/{id}",
+     *     summary="Update a comment by ID",
+     *     tags={"Comentarios"},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"contenido", "articulo_id", "usuario_id"},
+     *             @OA\Property(property="contenido", type="string", example="Contenido actualizado del comentario"),
+     *             @OA\Property(property="articulo_id", type="integer", example=1),
+     *             @OA\Property(property="usuario_id", type="integer", example=1)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Comment updated successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="message", type="string", example="Comentario actualizado"),
+     *             @OA\Property(property="Comentario", ref="#/components/schemas/Comentario"),
+     *             @OA\Property(property="status", type="integer", example=200)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Comment not found",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="message", type="string", example="Comentario no encontrado"),
+     *             @OA\Property(property="status", type="integer", example=404)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Validation error",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="message", type="string", example="Error al validar los datos"),
+     *             @OA\Property(property="errors", type="object"),
+     *             @OA\Property(property="status", type="integer", example=400)
+     *         )
+     *     )
+     * )
+     */
     
     public function actualizar(Request $request, $id){
       

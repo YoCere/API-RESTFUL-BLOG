@@ -664,6 +664,392 @@
                 }
             }
         },
+        "/api/comentarios": {
+            "get": {
+                "tags": [
+                    "Comentarios"
+                ],
+                "summary": "Get all comments",
+                "operationId": "c455b26665e0a1ec99e33b2bccce7bc6",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Comentarios": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Comentario"
+                                            }
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No comments found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No se encontraron comentarios registrados"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Comentarios"
+                ],
+                "summary": "Create a new comment",
+                "operationId": "66b7f8c1edcf2d316d9f42afba4e4b93",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "contenido",
+                                    "articulo_id",
+                                    "usuario_id"
+                                ],
+                                "properties": {
+                                    "contenido": {
+                                        "type": "string",
+                                        "example": "Contenido del comentario"
+                                    },
+                                    "articulo_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "usuario_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Comment created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Comentario": {
+                                            "$ref": "#/components/schemas/Comentario"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error de validación"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error al crear el comentario"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 500
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/comentarios/{id}": {
+            "get": {
+                "tags": [
+                    "Comentarios"
+                ],
+                "summary": "Get a comment by ID",
+                "operationId": "c0ac14756e17f7c2e7c46bbc50b4a083",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Comment found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Comentario": {
+                                            "$ref": "#/components/schemas/Comentario"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Comment not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Comentario no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Comentarios"
+                ],
+                "summary": "Update a comment by ID",
+                "operationId": "ffb74f5acbb56e54a908857fe770436b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "contenido",
+                                    "articulo_id",
+                                    "usuario_id"
+                                ],
+                                "properties": {
+                                    "contenido": {
+                                        "type": "string",
+                                        "example": "Contenido actualizado del comentario"
+                                    },
+                                    "articulo_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "usuario_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Comment updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Comentario actualizado"
+                                        },
+                                        "Comentario": {
+                                            "$ref": "#/components/schemas/Comentario"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Comment not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Comentario no encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error al validar los datos"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Comentarios"
+                ],
+                "summary": "Delete a comment by ID",
+                "operationId": "12c0fc2f649d3046d0e2db68c0542343",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Comment deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "El comentario ha sido eliminado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Comment not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "El comentario no se ha encontrado"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/register": {
             "post": {
                 "tags": [
@@ -958,6 +1344,37 @@
                 },
                 "type": "object"
             },
+            "Comentario": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "contenido": {
+                        "type": "string",
+                        "example": "Contenido del comentario"
+                    },
+                    "articulo_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "usuario_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-01-01T12:00:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-01-01T12:00:00Z"
+                    }
+                },
+                "type": "object"
+            },
             "User": {
                 "properties": {
                     "id": {
@@ -989,6 +1406,10 @@
         {
             "name": "Categories",
             "description": "Categories"
+        },
+        {
+            "name": "Comentarios",
+            "description": "Comentarios"
         },
         {
             "name": "Authentication",
