@@ -82,6 +82,7 @@ class articuloController extends Controller
             'Articulo'=> $Articulo,
             'status'=> 200
         ];
+        return response()->json($data, 200);
     }
 
     public function eliminar($id){

@@ -33,7 +33,6 @@ class comentariosController extends Controller
     public function store(Request $request) {
         $validator = Validator::make($request->all(), [
             'contenido' => 'required|max:3000',
-            'descripcion' => 'required|max:255',
             'articulo_id' => 'required|exists:articulos,id',
             'usuario_id' => 'required|exists:users,id'
         ], [
@@ -52,7 +51,6 @@ class comentariosController extends Controller
         // Asignar el ID del usuario autenticado
         $Comentario = Comentario::create([
             'contenido' => $request->contenido,
-            'descripcion' => $request->descripcion,
             'articulo_id' => $request->articulo_id,
             'usuario_id' => $request->usuario_id  // Aquí asignamos el ID del usuario autenticado
         ]);
@@ -113,7 +111,6 @@ class comentariosController extends Controller
 
         $validator = Validator::make($request->all(), [
             'contenido' => 'required|max:3000',
-            'descripcion' => 'required|max:255',
             'articulo_id' => 'required|exists:articulos,id',
             'usuario_id' => 'required|exists:users,id'
         ], [
@@ -133,14 +130,13 @@ class comentariosController extends Controller
         }
 
         $ComentarioActu->contenido= $request->contenido;
-        $ComentarioActu->descripcion= $request->descripcion;
         $ComentarioActu->articulo_id= $request->articulo_id;
         $ComentarioActu->usuario_id = $request->usuario_id;
         $ComentarioActu->save();
 
         $data = [
             'message'=> 'Comentario actualizado',
-            'Comentario'=> $ComentarioActu->fresh(),
+            'Comentario'=> $ComentarioActu,
             'status'=>200
         ];
 
